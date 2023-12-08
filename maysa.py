@@ -1,6 +1,6 @@
 """
 
-import pygame
+import pygame 
 import sys
 
 # Initialisation de Pygame
