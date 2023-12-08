@@ -5,8 +5,8 @@ from ia import ia
 
 
 def next_turn(row, col):
-    global player   
-    # من اجل ان اعرف اي لاهب ضغط الاول
+    global player
+
     if game_btns[row][col]['text'] == "" and not check_Gagner():
         game_btns[row][col]['text'] = player
 
@@ -19,6 +19,7 @@ def next_turn(row, col):
 
         elif check_Gagner() == "Égalité":
             label.config(text=("Égalité, Non gagner ! "))
+
     """  
     # Vérifiez si la cellule est vide
     if game_btns[row][col]['text'] == "":
@@ -82,6 +83,8 @@ def next_turn(row, col):
                 label.config(text=(players[1] + " Gagner"))
 
             elif check_Gagner() == "Égalité":
+
+         
                 label.config(text=("Égalité, Non gagner ! "))
 
 def check_Gagner():  # من اجل ان تختبر حالات الفوز في اللعبة
@@ -187,5 +190,3 @@ for row in range(3):
         
         game_btns[row][col].grid(row=row, column=col)
 window.mainloop()
-
-
