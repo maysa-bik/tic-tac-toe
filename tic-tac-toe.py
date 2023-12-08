@@ -7,7 +7,7 @@ from ia import ia
 def next_turn(row, col):
     global player   
     # من اجل ان اعرف اي لاهب ضغط الاول
-    if game_btns[row][col]['text'] == "" and not check_Gagner():
+    if game_btns[row][col]['text'] == "" and check_Gagner() is False:
         game_btns[row][col]['text'] = player
 
         if check_Gagner() == False:
@@ -111,7 +111,7 @@ def check_Gagner():  # من اجل ان تختبر حالات الفوز في ا
         game_btns[0][2].config(text="", bg="cyan")
         game_btns[1][1].config(text="", bg="cyan")
         game_btns[2][0].config(text="", bg="cyan")
-        return True
+        return True     
 
     # S'il ne reste plus d'espaces vides  # هنا في حاله عدم الفوز
     if not check_empty_spaces():
@@ -181,9 +181,9 @@ restart_btn.pack(side="top")
 btns_frame = Frame(window) # من اجل ان ننشئ 9 ازرار الذي سوف نضغط عليهم 
 btns_frame.pack()
 
-for row in range(3):
-    for col in range(3):
-        game_btns[row][col] = Button(btns_frame, text="", font=('consolas', 50), width=4, height=1, command=lambda row=row, col=col: next_turn(row,col))
+for row in range(3):  
+    for col in range(3):# من اجل ان تعيد لي المؤبعات التسعة الذي طلبناهن فوق 
+        game_btns[row][col] = Button(btns_frame, text="", font=('consolas', 50), width=5, height=2, command=lambda row=row, col=col: next_turn(row,col))
         
         game_btns[row][col].grid(row=row, column=col)
 window.mainloop()

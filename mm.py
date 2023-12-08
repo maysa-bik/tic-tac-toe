@@ -1,3 +1,5 @@
+
+"""
 from tkinter import *
 import random
 
@@ -190,3 +192,4 @@ for row in range(3):
         
         game_btns[row][col].grid(row=row, column=col)
 window.mainloop()
+"""
