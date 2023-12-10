@@ -187,6 +187,14 @@ def le_jeu_est_terminé():
     # La partie est terminée par match nul
     return True
 
+def reset_game():
+    for row in range(3):
+        for col in range(3):
+            game_btns[row][col]['text'] = ""
+
+    player = random.choice(players)
+    label.config(text=(player + " Rôle"))
+
 
 window = Tk()
 
