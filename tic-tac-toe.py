@@ -4,6 +4,57 @@ import random
 from ia import ia 
 
 
+
+
+# utilisateurs.py
+
+utilisateurs = {}
+
+def creer_utilisateur(nom_utilisateur):
+    utilisateurs[nom_utilisateur] = {'score': 0, 'historique': []}
+
+# utilisateurs.py
+
+def mettre_a_jour_scores(nom_utilisateur, resultat):
+    if resultat == 1:  # Si le joueur a gagné
+        utilisateurs[nom_utilisateur]['score'] += 1
+
+    # Ajoutez le résultat à l'historique
+    utilisateurs[nom_utilisateur]['historique'].append(resultat)
+
+# utilisateurs.py
+
+def obtenir_scores(nom_utilisateur):
+    return utilisateurs[nom_utilisateur]['score']
+
+def obtenir_historique_scores(nom_utilisateur):
+    return utilisateurs[nom_utilisateur]['historique']
+
+def start_new_game():
+    global player
+    player = random.choice(players)
+    creer_utilisateur(player)  # Créez un utilisateur s'il n'existe pas
+    label.config(text=(f"{player} Rôle - Scores: {obtenir_scores(player)}"))
+
+    for row in range(3):
+        for col in range(3):
+            game_btns[row][col].config(text="", bg="#F0F0F0")
+"""
+from utilisateurs import creer_utilisateur, mettre_a_jour_scores, obtenir_scores, obtenir_historique_scores
+
+
+def start_new_game():
+    global player
+    player = random.choice(players)
+    label.config(text=(f"{player} Rôle - Scores: {obtenir_scores(player)}"))
+
+    for row in range(3):
+        for col in range(3):
+            game_btns[row][col].config(text="", bg="#F0F0F0")  
+
+"""            
+
+            
 def next_turn(row, col):
     global player   
     # من اجل ان اعرف اي لاعب ضغط الاول # Afin de savoir quel joueur a appuyé en premier
