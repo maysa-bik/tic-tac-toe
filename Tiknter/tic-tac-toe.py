@@ -4,7 +4,7 @@ import random
 from ia import ia 
 
 
-
+from utilisateurs import creer_utilisateur, mettre_a_jour_scores, obtenir_scores, obtenir_historique_scores
 
 # utilisateurs.py
 
