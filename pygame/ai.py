@@ -74,3 +74,16 @@ class AI:
         print(f'AI has chosen to mark the square in pos {move} with an eval of: {eval}')    
 
         return move # row, col
+    
+
+def ia(board, signe):
+    empty_sqrs = []
+    for row in range(len(board)):
+        for col in range(len(board[row])):
+            if board[row][col] == 0:
+                empty_sqrs.append((row, col))
+
+    if not empty_sqrs:
+        return False  # Aucune case vide, erreur
+
+    return random.choice(empty_sqrs)

@@ -13,6 +13,25 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT)) # screen: Création de la fen�
 pygame.display.set_caption('TIC TAC TOE AI') # pygame.display.set_caption('TIC TAC TOE AI'): Définition du titre de la fenêtre.
 screen.fill(BG_color) # Remplissage de l'écran avec la couleur d'arrière-plan.
 
+class Button:
+    def __init__(self, text, rect, color, action):
+        self.text = text
+        self.rect = pygame.Rect(rect)
+        self.color = color
+        self.action = action
+
+    def draw(self, screen, font):
+        pygame.draw.rect(screen, self.color, self.rect)
+        pygame.draw.rect(screen, (0, 0, 0), self.rect, 2)  # Bordure
+        text_surface = font.render(self.text, True, (0, 0, 0))
+        text_rect = text_surface.get_rect(center=self.rect.center)
+        screen.blit(text_surface, text_rect)
+
+    def handle_event(self, event):
+        if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+            if self.rect.collidepoint(event.pos):
+                self.action()
+
 class Board:
     # La classe Board représente le plateau de jeu. Elle a des méthodes pour marquer une case, vérifier si une case est vide, obtenir les cases vides, vérifier si le plateau est plein ou vide.
     def __init__(self):
@@ -52,6 +71,7 @@ class Board:
                 color = CIRC_COLOR if self.squares[1][1] == 2 else CROSS_COLOR
                 iPos = (20, 20)
                 fPos = (WIDTH - 20, HEIGHT - 2)
+                pygame.draw.line(screen, color, iPos, fPos, CROSS_WIDTH)
             return self.squares[1][1]
 
         # asc diagonal 
@@ -60,11 +80,24 @@ class Board:
                 color = CIRC_COLOR if self.squares[1][1] == 2 else CROSS_COLOR
                 iPos = (20, HEIGHT - 20)
                 fPos = (WIDTH - 20, 20)
+                pygame.draw.line(screen, color, iPos, fPos, CROSS_WIDTH)
             return self.squares[1][1]
         
         # no win yet 
         return 0
 
+    def check_game_state(self):
+        # Vérifiez s'il y a un gagnant
+        winner = self.final_state(show=False)
+        if winner == 1 or winner == 2:
+            return f"Joueur {winner} a gagné !"
+
+        # Vérifiez s'il y a un match nul
+        if self.isfull():
+            return "Match nul !"
+
+        # Si le jeu n'est pas terminé
+        return None
 
 
 
@@ -138,7 +171,12 @@ class Game:
     def make_move(self, row, col):
         self.board.mark_sqr(row, col, self.player)
         self.draw_fig(row, col)
-        self.next_turn()
+        result = self.board.check_game_state()
+        if result:
+            print(result)
+            self.running = False
+        else:
+            self.next_turn()
         
     def show_lines(self): # Cette fonction dessine les lignes du plateau de jeu.
         # vertical
@@ -189,10 +227,12 @@ def main():
     while True:  # La boucle principale du jeu où les événements sont traités en permanence.
 
         for event in pygame.event.get():
-
+           
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
+
+                
 
             if  event.type == pygame.KEYDOWN:
 
@@ -229,7 +269,7 @@ def main():
 
                     
  
-
+        # .... (autres conditions)
         if game.gamemode == 'ai' and game.player == ai.player and  game.running:
             # update the screen 
             pygame.display.update()  
@@ -237,11 +277,8 @@ def main():
             # ai methods    
             row, col = ai.evel(board)
             game.make_move(row, col)
-          
-
-                
-
-
+            if game.isover():
+                game.running = False
         pygame.display.update()
         # Cette ligne met à jour l'affichage à chaque itération de la boucle principale.
 main()                
