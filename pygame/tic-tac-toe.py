@@ -12,7 +12,7 @@ pygame.init() # pygame.init(): Initialisation de Pygame.
 screen = pygame.display.set_mode((WIDTH, HEIGHT)) # screen: Création de la fenêtre du jeu.
 pygame.display.set_caption('TIC TAC TOE AI') # pygame.display.set_caption('TIC TAC TOE AI'): Définition du titre de la fenêtre.
 screen.fill(BG_color) # Remplissage de l'écran avec la couleur d'arrière-plan.
-
+"""
 class Button:
     def __init__(self, text, rect, color, action):
         self.text = text
@@ -31,7 +31,7 @@ class Button:
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
             if self.rect.collidepoint(event.pos):
                 self.action()
-
+"""
 class Board:
     # La classe Board représente le plateau de jeu. Elle a des méthodes pour marquer une case, vérifier si une case est vide, obtenir les cases vides, vérifier si le plateau est plein ou vide.
     def __init__(self):
@@ -85,7 +85,7 @@ class Board:
         
         # no win yet 
         return 0
-
+    
     def check_game_state(self):
         # Vérifiez s'il y a un gagnant
         winner = self.final_state(show=False)
@@ -98,9 +98,6 @@ class Board:
 
         # Si le jeu n'est pas terminé
         return None
-
-
-
 
     def mark_sqr(self, row, col, player):
         self.squares[row][col] = player
@@ -216,6 +213,30 @@ class Game:
 
     def reset(self):
         self.__init__()
+    '''
+
+    
+    def __init__(self):
+        self.players = ["Joueur 1", "Joueur 2"]
+        self.player = ""
+        self.create_game_board()
+
+    def create_game_board(self):
+        # Initialisez votre plateau de jeu (grille, boutons, etc.)
+        self.game_btns = [[None for _ in range(3)] for _ in range(3)]
+        # ... (autres configurations)
+
+    def start_new_game(self):
+        self.player = random.choice(self.players)
+        # ... (autres configurations pour le début d'une nouvelle partie)
+
+    def le_jeu_est_terminé(self):
+        # Vérifiez si un joueur a gagné en ligne
+        for row in range(3):
+            if self.game_btns[row][0]['text'] == self.game_btns[row][1]['text'] == self.game_btns[row][2]['text'] != "":
+                return True
+        # ... (autres conditions de victoire) 
+    '''   
 def main():
     # La fonction principale du jeu. Elle initialise le jeu, crée un objet Game, puis entre dans une boucle principale où elle gère les événements de la fenêtre et met à jour l'affichage.
 
@@ -231,9 +252,17 @@ def main():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
+            '''
+            # Gérez le début d'une nouvelle partie
+            if besoin_de_commencer_une_nouvelle_partie:
+                game.start_new_game()
+                besoin_de_commencer_une_nouvelle_partie = False  # Remettez à False après avoir traité l'événement
 
-                
-
+            # Gérez la fin du jeu
+            if game.le_jeu_est_terminé():
+                print("Le jeu est terminé. Affichez le résultat ou effectuez d'autres actions nécessaires.")
+                besoin_de_commencer_une_nouvelle_partie = True  # Mettez à True pour commencer une nouvelle partie   
+            '''
             if  event.type == pygame.KEYDOWN:
 
                 # g-gamemode
@@ -259,14 +288,17 @@ def main():
                 pos = event.pos
                 row = pos[1] // SQSIZE
                 col = pos[0] // SQSIZE
-
-
+                '''
+                if game.board.empty_sqr(row, col):
+                    game.make_move(row, col)
+                '''
+                
                 if board.empty_sqr(row, col):
                     game.make_move(row, col)
 
                     if game.isover():
                         game.running = False
-
+            
                     
  
         # .... (autres conditions)
@@ -279,6 +311,5 @@ def main():
             game.make_move(row, col)
             if game.isover():
                 game.running = False
-        pygame.display.update()
-        # Cette ligne met à jour l'affichage à chaque itération de la boucle principale.
-main()                
+            pygame.display.update()    
+main()              

@@ -75,7 +75,7 @@ class AI:
 
         return move # row, col
     
-
+"""
 def ia(board, signe):
     empty_sqrs = []
     for row in range(len(board)):
@@ -87,3 +87,4 @@ def ia(board, signe):
         return False  # Aucune case vide, erreur
 
     return random.choice(empty_sqrs)
+"""

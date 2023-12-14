@@ -96,7 +96,7 @@ def next_turn(row, col):
                 label.config(text=(players[1] + " Rôle "))
 
             elif check_Gagner() == True:  # اذا تحقق شرط من شروط الفوز #Si une des conditions pour gagner est remplie
-                label.config(text=(players[0] + " Gagner"))  #   ده معناه انه فاز سوف تذهر له هذه الرساله # Cela signifie qu'il a gagné, et ce message lui apparaîtra
+                label.config(text=(players[0] + " Gagner"))  #   ده معناه انه فاز سوف تظهر له هذه الرساله # Cela signifie qu'il a gagné, et ce message lui apparaîtra
 
             elif check_Gagner() == "Égalité":
                 label.config(text=("Égalité, Non gagner ! "))            
@@ -132,8 +132,8 @@ def next_turn(row, col):
             elif check_Gagner() == True:
                 label.config(text=(players[1] + " Gagner"))
 
-            elif check_Gagner() == "Égalité":
-                label.config(text=("Égalité, Non gagner ! "))
+            elif check_Gagner() == " ":
+                label.config(text=("Match nul ! "))
 
 def check_Gagner():  # من اجل ان تختبر حالات الفوز في اللعبة # Afin de tester des situations gagnantes dans le jeu
     # Vérifier toutes les conditions horizontales
