@@ -1,6 +1,5 @@
 import sys  # sys: Module fournissant un accès à certaines variables utilisées ou maintenues par l'interpréteur et à des fonctions qui interagissent fortement avec l'interpréteur.
 import pygame # pygame: Bibliothèque pour la création de jeux.
-import random
 import numpy as np # numpy: Bibliothèque pour le support de tableaux multidimensionnels et de matrices.
 
 from constants import *
@@ -311,5 +310,5 @@ def main():
             game.make_move(row, col)
             if game.isover():
                 game.running = False
-            pygame.display.update()    
+        pygame.display.update()    
 main()              
