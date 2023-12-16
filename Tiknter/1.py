@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter import messagebox
 import tkinter
+#from ia_1 import ia
 
 gamewindow = Tk()
 gamewindow.title("tic tac toe")
@@ -38,17 +39,57 @@ def checker(buttons):
         scorekeeper()
 
 def colorreturn():
-    button1.configure(fg="silver")  
-    button2.configure(fg="silver") 
-    button3.configure(fg="silver") 
-    button4.configure(fg="silver") 
-    button5.configure(fg="silver") 
-    button6.configure(fg="silver") 
-    button7.configure(fg="silver") 
-    button8.configure(fg="silver") 
-    button9.configure(fg="sliver")       
+    button1.configure(fg="black")  
+    button2.configure(fg="black") 
+    button3.configure(fg="black") 
+    button4.configure(fg="black") 
+    button5.configure(fg="black") 
+    button6.configure(fg="black") 
+    button7.configure(fg="black") 
+    button8.configure(fg="black") 
+    button9.configure(fg="black")       
 
 def scorekeeper():
+    winning_combinations = [
+        [button1, button2, button3],
+        [button4, button5, button6],
+        [button7, button8, button9],
+        [button1, button4, button7],
+        [button2, button5, button8],
+        [button3, button6, button9],
+        [button1, button5, button9],
+        [button3, button5, button7]
+    ]
+    total_moves = sum(button["text"] != " " for button in [button1, button2, button3, button4, button5, button6, button7, button8, button9])
+    
+    if total_moves == 9:
+        messagebox.showinfo("Match Nul", "La partie est un match nul")
+        colorreturn()
+        return  # Ajoutez cette ligne pour sortir de la fonction après avoir trouvé un match nul
+   
+    for combo in winning_combinations:
+        if combo[0]["text"] == "x" and combo[1]["text"] == "x" and combo[2]["text"] == "x":
+            for button in combo:
+                button.configure(fg="green")
+            playerx.set(playerx.get() + 1)
+            messagebox.showinfo("Le gagnant est X", "La partie est terminée")
+            colorreturn()
+            return  # Ajoutez cette ligne pour sortir de la fonction après avoir trouvé une combinaison gagnante
+        elif combo[0]["text"] == "o" and combo[1]["text"] == "o" and combo[2]["text"] == "o":
+            for button in combo:
+                button.configure(fg="green")
+            playero.set(playero.get() + 1)
+            messagebox.showinfo("Le gagnant est O", "La partie est terminée")
+            colorreturn()
+            return  # Ajoutez cette ligne pour sortir de la fonction après avoir trouvé une combinaison gagnante
+          # Vérifiez s'il y a un match nul
+        #if all(button["text"] != " " for row in buttons for button in row) and not any(combo[0]["text"] == "x" or combo[0]["text"] == "o" for combo in winning_combinations):
+            messagebox.showinfo("Match Nul", "La partie est un match nul")
+            colorreturn()
+            return  # Ajoutez cette ligne pour sortir de la fonction après avoir trouvé un match nul
+            
+
+
     if(button1["text"] == "x" and button2["text"] == "x" and button3["text"] == "x"):
         button1.configure(fg="green")  
         button2.configure(fg="green") 
@@ -207,17 +248,16 @@ def scorekeeper():
         score = (s + 1)
         playero.set(score)
         tkinter.messagebox.showinfo("winer est o", "la game est terminer")
-        colorreturn()  
-    '''
-    elif(button4["text"] == "o" and button5["text"] == "o" and button6["text"] == "o"):
-        button1.configure(fg="green")  
-        button2.configure(fg="green") 
-        button3.configure(fg="green")  
-        s = float(playerx.get())
-        score = (s + 1)
-        playero.set(score)
-        tkinter.messagebox.showinfo("winer est o", "la game est terminer")                                                           
-    '''      
+        colorreturn()
+
+
+
+    '''     
+
+    else:
+        return
+    tkinter.messagebox.showinfo("Match Nul")
+    ''' 
 def restart():
     button1["text"] = " "  
     button2["text"] = " "  
@@ -234,10 +274,11 @@ def restart():
     button3.configure(background="silver")
     button4.configure(background="silver")
     button5.configure(background="silver")
-    button6.configure(background="black")
-    button7.configure(background="black")
-    button8.configure(background="black")
-    button9.configure(background="black")
+    button6.configure(background="silver")
+    button7.configure(background="silver")
+    button8.configure(background="silver")
+    button9.configure(background="silver")
+
 
 
 def newgame():
@@ -296,6 +337,40 @@ nothinkgamebutton.grid(row=0, column=1)
 """
 exitgamebutton = Button(bottomframe, text="sorti", width=25, height=4, bd=2, bg="green", fg="black", command=lambda :quit(gamewindow), font=("arial", 12,"bold"))
 exitgamebutton.grid(row=0, column=0)
+
+# Importez la fonction ia depuis le fichier ia.py
+
+"""
+# ... (votre code existant)
+buttons = [[None, None, None],
+           [None, None, None],
+           [None, None, None]]
+
+for i in range(3):
+    for j in range(3):
+        buttons[i][j] = Button(topframe, text=" ", font=("Times 22 bold"), height=2, width=6, bg="silver", command=lambda i=i, j=j: checker(buttons[i][j]))
+        buttons[i][j].grid(row=i + 1, column=j, sticky=S + N + E + W)
+
+def play_ia():
+    move = ia(get_board_state(), "o")
+    if move is not False:
+        i, j = move // 3, move % 3
+        if buttons[i][j]["text"] == " ":
+            buttons[i][j]["text"] = "o"
+            scorekeeper()
+
+
+def play_ia():
+    # Fonction pour le tour de l'IA
+    move = ia(get_board_state(), "o")  # "o" représente le signe de l'IA
+    if move is not False:
+        # Mettez à jour l'interface graphique ou le tableau de jeu avec le mouvement de l'IA
+        # Par exemple, si move est 4, cela signifie que l'IA veut jouer à la position 4.
+        button[move]["text"] = "o"
+        scorekeeper()
+"""
+# Ajoutez cette fonction à votre code existant où vous gérez les événements du jeu
+# Par exemple, ajoutez un bouton "Jouer contre l'IA" qui appelle play_ia() lorsque cliqué.
 
 
 gamewindow.mainloop()
