@@ -1,17 +1,17 @@
 from tkinter import *
 from tkinter import messagebox
 import tkinter
-#from ia_1 import ia
+from ia_1 import ia
 
 gamewindow = Tk()
 gamewindow.title("tic tac toe")
 gamewindow.geometry("800x800+400+400")
-gamewindow.configure(background='orange')
+gamewindow.configure(background="#87CEEB")
 
-topframe = Frame(gamewindow, width=798, height=390, bd=5, relief=RIDGE, bg="blue", padx=2, pady=4)
+topframe = Frame(gamewindow, width=798, height=390, bd=5, relief=RIDGE, bg="#FFB6C1" , padx=2, pady=4)
 topframe.grid(row=0, column=0)
 
-downframe = Frame(gamewindow, width=798, height=290, bd=5, relief=RIDGE, bg="yellow", padx=2, pady=4)
+downframe = Frame(gamewindow, width=798, height=290, bd=5, relief=RIDGE, bg="#FFFF99", padx=2, pady=4)
 downframe.grid(row=1, column=0)
 
 bottomframe = Frame(gamewindow, width=798, height=290, bd=5, relief=RIDGE, bg="silver", padx=2, pady=4)
@@ -314,10 +314,10 @@ button9 = Button(topframe, text=" ", font=("Times 22 bold"), height=2, width=6, 
 button9.grid(row=3, column=2, sticky= S+N+E+W) 
 
 
-labelplayero = Label(downframe, font=("arial", 26,"bold"), text="Résultat la joueur o :", padx=2, pady=2, bg="gold")
+labelplayero = Label(downframe, font=("arial", 26,"bold"), text="Résultat la joueur o :", padx=2, pady=2, bg="#FFA07A")
 labelplayero.grid(row=0, column=0)
 
-labelplayerx = Label(downframe, font=("arial", 26,"bold"), text="Résultat la joueur x :", padx=2, pady=2, bg="gold")
+labelplayerx = Label(downframe, font=("arial", 26,"bold"), text="Résultat la joueur x :", padx=2, pady=2, bg="#FFA07A")
 labelplayerx.grid(row=1, column=0)
 
 resultx = Entry(downframe, font=("arial", 26,"bold"), bd=2, fg="black", textvariable=playerx)
@@ -326,16 +326,16 @@ resultx.grid(row=1, column=1)
 resulto = Entry(downframe, font=("arial", 26,"bold"), bd=2, fg="black", textvariable=playero)
 resulto.grid(row=0, column=1)
 
-newgamebutton = Button(bottomframe, text="new game ", width=25, height=4, bd=2, bg="green", fg="black", font=("arial", 12,"bold"), command=newgame)
+newgamebutton = Button(bottomframe, text="new game ", width=25, height=4, bd=2, bg="#98FF98", fg="black", font=("arial", 12,"bold"), command=newgame)
 newgamebutton.grid(row=0, column=3)
 
-newstartgamebutton = Button(bottomframe, text=" restart", width=25, height=4, bd=2, bg="green", fg="black", font=("arial", 12,"bold"), command=restart)
+newstartgamebutton = Button(bottomframe, text=" restart", width=25, height=4, bd=2, bg="#98FF98", fg="black", font=("arial", 12,"bold"), command=restart)
 newstartgamebutton.grid(row=0, column=2)
 """
 nothinkgamebutton = Button(bottomframe, text=" ", width=20, height=4, bd=2, bg="green", fg="black", font=("arial", 12,"bold"),)
 nothinkgamebutton.grid(row=0, column=1)
 """
-exitgamebutton = Button(bottomframe, text="sorti", width=25, height=4, bd=2, bg="green", fg="black", command=lambda :quit(gamewindow), font=("arial", 12,"bold"))
+exitgamebutton = Button(bottomframe, text="sorti", width=25, height=4, bd=2, bg="#98FF98", fg="black", command=lambda :quit(gamewindow), font=("arial", 12,"bold"))
 exitgamebutton.grid(row=0, column=0)
 
 # Importez la fonction ia depuis le fichier ia.py
@@ -368,9 +368,16 @@ def play_ia():
         # Par exemple, si move est 4, cela signifie que l'IA veut jouer à la position 4.
         button[move]["text"] = "o"
         scorekeeper()
-"""
-# Ajoutez cette fonction à votre code existant où vous gérez les événements du jeu
-# Par exemple, ajoutez un bouton "Jouer contre l'IA" qui appelle play_ia() lorsque cliqué.
 
+def play_ia():
+    # Fonction pour le tour de l'IA
+    move = ia(get_board_state(), "o") # "o" représente le signe de l'IA
+    print("IA move:", move)
+    if move is not False:
+        # Mettez à jour l'interface graphique ou le tableau de jeu avec le mouvement de l'IA
+        # Par exemple, si move est 4, cela signifie que l'IA veut jouer à la position 4.
+        buttons[move]["text"] = "o"
+        scorekeeper()
+"""
 
 gamewindow.mainloop()
