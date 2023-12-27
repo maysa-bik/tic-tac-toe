@@ -1,49 +1,28 @@
 # Fichier "ia.py"
-'''
-import random
-
-def ia(board, signe):
-    # Implémentation simple : l'IA choisit un emplacement aléatoire non occupé
-    empty_spots = [i for i, val in enumerate(board) if val == 0]
-    
-    if empty_spots:
-        return random.choice(empty_spots)
-    else:
-        return False
-'''
-import random
-
-# Dans le fichier ia.py
-def ia(board, signe):
-    print("Board state:", board)
-    print("Current sign:", signe)
-    # Implémentation de l'intelligence artificielle ici
-    pass
-''' 
 import random
 
 def ia(board, signe):
     # Recherche d'une case pour gagner
     for i in range(9):
-        if board[i] == 0:
+        if board[i] == " ":
             board[i] = signe
             if gagne(board, signe):
-                board[i] = 0  # Annuler le mouvement
+                board[i] = " "  # Annuler le mouvement
                 return i
-            board[i] = 0  # Annuler le mouvement
+            board[i] = " "  # Annuler le mouvement
 
     # Recherche d'une case pour bloquer l'adversaire
     adversaire_signe = "o" if signe == "x" else "x"
     for i in range(9):
-        if board[i] == 0:
+        if board[i] == " ":
             board[i] = adversaire_signe
             if gagne(board, adversaire_signe):
-                board[i] = 0  # Annuler le mouvement
+                board[i] = " "  # Annuler le mouvement
                 return i
-            board[i] = 0  # Annuler le mouvement
+            board[i] = " "  # Annuler le mouvement
 
     # Si aucune opportunité de gagner ou de bloquer, choisir une case vide au hasard
-    cases_vides = [i for i in range(9) if board[i] == 0]
+    cases_vides = [i for i in range(9) if board[i] == " "]
     if cases_vides:
         return random.choice(cases_vides)
     else:
@@ -61,4 +40,3 @@ def gagne(board, signe):
         return True
 
     return False
-'''

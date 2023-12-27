@@ -11,7 +11,7 @@ pygame.init() # pygame.init(): Initialisation de Pygame.
 screen = pygame.display.set_mode((WIDTH, HEIGHT)) # screen: Création de la fenêtre du jeu.
 pygame.display.set_caption('TIC TAC TOE AI') # pygame.display.set_caption('TIC TAC TOE AI'): Définition du titre de la fenêtre.
 screen.fill(BG_color) # Remplissage de l'écran avec la couleur d'arrière-plan.
-"""
+
 class Button:
     def __init__(self, text, rect, color, action):
         self.text = text
@@ -30,7 +30,7 @@ class Button:
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
             if self.rect.collidepoint(event.pos):
                 self.action()
-"""
+
 class Board:
     # La classe Board représente le plateau de jeu. Elle a des méthodes pour marquer une case, vérifier si une case est vide, obtenir les cases vides, vérifier si le plateau est plein ou vide.
     def __init__(self):
@@ -130,7 +130,7 @@ class Board:
     
     def isempty(self):
         return self.marked_sqrs == 0
-'''
+
 class AI:
     def __init__(self, level=0, player=2):
         self.level = level
@@ -152,7 +152,7 @@ class AI:
             pass
 
         return move # row, col
-'''
+
 class Game:
     #La classe Game gère l'état du jeu. Elle a une instance de la classe Board et des méthodes pour afficher les lignes sur l'écran, dessiner les figures (croix ou cercle), et passer au tour suivant.
 
@@ -235,9 +235,11 @@ class Game:
             if self.game_btns[row][0]['text'] == self.game_btns[row][1]['text'] == self.game_btns[row][2]['text'] != "":
                 return True
         # ... (autres conditions de victoire) 
-    '''   
+    '''  
+    
 def main():
     # La fonction principale du jeu. Elle initialise le jeu, crée un objet Game, puis entre dans une boucle principale où elle gère les événements de la fenêtre et met à jour l'affichage.
+
 
     # object
     game = Game()
